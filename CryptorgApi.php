@@ -2,7 +2,7 @@
 
 class CryptorgApi {
 
-    const API_URL = 'http://api.cryptorg.net';
+    const API_URL = 'https://api.cryptorg.net';
 
     private $apiKey;
     private $apiSecret;
