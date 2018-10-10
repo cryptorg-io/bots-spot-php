@@ -220,9 +220,9 @@ class CryptorgApi {
      * @param string | null $attributes
      * @return array
      */
-    public function sendRequest($method, $url, $params = null, $attributes = null) {
+    private function sendRequest($method, $url, $params = null, $attributes = null) {
 
-        $query = json_encode($params == null ?  [] : http_build_query($params));
+        $query = json_encode($params == null ?  '' : http_build_query($params));
         $query = str_replace('"', '', $query);
 
         $nonce = round(microtime(true) * 1000);
@@ -241,7 +241,6 @@ class CryptorgApi {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, static::API_URL . '/' . $url . '?' . $query);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_PORT, 8080);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 
