@@ -208,6 +208,32 @@ class CryptorgApi {
     /**
      * _________________________________________________________________________________________________________________
      *
+     *                                                  Account methods
+     * _________________________________________________________________________________________________________________
+     */
+
+    /**
+     * Get coin balance
+     * @param $params
+     * @return array
+     */
+    public function getCoinBalance($params)
+    {
+        return $this->sendRequest('GET', 'account/get-coin-balance', $params);
+    }
+
+    /**
+     * Get list of all users access points
+     * @return array
+     */
+    public function getAccessList()
+    {
+        return $this->sendRequest('GET', 'account/get-access-list');
+    }
+
+    /**
+     * _________________________________________________________________________________________________________________
+     *
      *                                                  System methods
      * _________________________________________________________________________________________________________________
      */
@@ -225,7 +251,8 @@ class CryptorgApi {
         $query = json_encode($params == null ?  '' : http_build_query($params));
         $query = str_replace('"', '', $query);
 
-        $nonce = round(microtime(true) * 1000);
+        $currentDate = new DateTime();
+        $nonce = $currentDate->getTimestamp();
 
         $strForSign = $url . '/' . $nonce . '/' . $query;
 
@@ -239,6 +266,7 @@ class CryptorgApi {
         ];
 
         $ch = curl_init();
+
         curl_setopt($ch, CURLOPT_URL, static::API_URL . '/' . $url . '?' . $query);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
