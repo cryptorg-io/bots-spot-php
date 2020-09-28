@@ -232,6 +232,16 @@ class CryptorgApi {
     }
 
     /**
+     * Get list of all withdrawal
+     * @param $params
+     * @return array
+     */
+    public function getWithdrawalHistory($params)
+    {
+        return $this->sendRequest('GET', 'account/get-withdrawal-history', $params);
+    }
+
+    /**
      * _________________________________________________________________________________________________________________
      *
      *                                                  System methods
